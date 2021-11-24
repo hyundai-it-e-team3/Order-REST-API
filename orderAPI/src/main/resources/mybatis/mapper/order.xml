@@ -8,6 +8,18 @@
 		(#{orderId}, #{memberId}, sysdate, #{totalPrice}, #{discountPrice}, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{recName}, #{couponId})
 	</insert>
 	
+	<select id="selectByOid" resultType="order" parameterType="String">
+		SELECT member_id, order_date, total_price, discount_price, state, request, zip_code, address1, address2, tel, tel, rec_name, coupon_id
+		FROM morder
+		WHERE order_id = #{value}
+	</select>
+	
+	<select id="selectByOidMid" resultType="order" parameterType="Map">
+		SELECT order_date, total_price, discount_price, state, request, zip_code, address1, address2, tel, tel, rec_name, coupon_id
+		FROM morder
+		WHERE order_id = #{orderId} AND member_id = #{memberId} 
+	</select>
+	
 	<select id="selectByMid" resultType="order" parameterType="String">
 		SELECT o.order_id, o.order_date, o.total_price,
 		    od.product_name, od.psize, od.amount, od.delivery_state

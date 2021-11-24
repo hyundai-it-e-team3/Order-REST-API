@@ -11,4 +11,7 @@ public interface OrderDao {
 	public List<Order> selectByMid(String memberId);
 	public void insert(Order order);
 	public void updateState(Order order);
+	
+	public Order selectByOid(String orderId);
+	public Order selectByOidMid(String orderId, String memberId);
 }

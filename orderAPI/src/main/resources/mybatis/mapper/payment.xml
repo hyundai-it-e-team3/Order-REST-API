@@ -16,5 +16,4 @@
 		SET state = #{state}
 		WHERE order_id = #{orderId} AND type=#{type}
 	</update>
-
 </mapper>
