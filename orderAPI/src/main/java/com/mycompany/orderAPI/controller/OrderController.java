@@ -1,12 +1,11 @@
 package com.mycompany.orderAPI.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,15 +23,20 @@ public class OrderController{
 	@Resource
 	private OrderService orderService;
 	
-	@GetMapping("/list")
-	public Map<String, Object> list(@RequestBody Member member) {
+	@PostMapping
+	public void insert(@RequestBody Order order) {
 		log.info("실행");
-		log.info("memberId : " + member);
+		log.info("order : " + order);
 		
-		List<Order> list = orderService.getOrders(member.getMemberId());
-		Map<String, Object> map = new HashMap<>();
-		map.put("orders", list);
+		orderService.insert(order);
+	}
+	
+	@GetMapping("/list")
+	public List<Order> list(@RequestBody Member member) {
+		log.info("실행");
+		log.info("member : " + member);
 		
-		return map;
+		List<Order> list = orderService.getOrders(member.getMemberId()); 
+		return list;
 	}
 }
