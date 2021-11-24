@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Order;
+import com.mycompany.orderAPI.dto.order.OrderDetail;
 import com.mycompany.orderAPI.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,5 +48,13 @@ public class OrderController{
 		log.info("order : " + order);
 		
 		orderService.updateState(order);
+	}
+	
+	@GetMapping("/detail")
+	public List<OrderDetail> detail(@RequestBody String orderId) { 
+		log.info("실행");
+		log.info("order : " + orderId);
+		
+		return orderService.getOrderDetail(orderId);
 	}
 }
