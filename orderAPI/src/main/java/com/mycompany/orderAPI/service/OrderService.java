@@ -21,5 +21,10 @@ public class OrderService {
 		log.info("실행");
 		return orderDao.selectByMid(memberId);
 	}
+	
+	public void insert(Order order) {
+		log.info("실행");
+		orderDao.insert(order);
+	}
 
 }
