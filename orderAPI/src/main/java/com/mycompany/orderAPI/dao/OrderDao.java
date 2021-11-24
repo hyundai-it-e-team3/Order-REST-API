@@ -10,4 +10,5 @@ import com.mycompany.orderAPI.dto.order.Order;
 public interface OrderDao {
 	public List<Order> selectByMid(String memberId);
 	public void insert(Order order);
+	public void updateState(Order order);
 }
