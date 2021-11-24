@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.orderAPI.dao.OrderDao;
+import com.mycompany.orderAPI.dao.OrderDetailDao;
 import com.mycompany.orderAPI.dto.order.Order;
+import com.mycompany.orderAPI.dto.order.OrderDetail;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderService {
 	@Resource
 	private OrderDao orderDao;
+	@Resource
+	private OrderDetailDao orderDetailDao;
 	
 	public List<Order> getOrders(String memberId) {
 		log.info("실행");
@@ -30,6 +34,11 @@ public class OrderService {
 	public void updateState(Order order) {
 		log.info("실행");
 		orderDao.updateState(order);
+	}
+	
+	public List<OrderDetail> getOrderDetail(String orderId) {
+		log.info("실행");
+		return orderDetailDao.selectByOid(orderId);
 	}
 
 }

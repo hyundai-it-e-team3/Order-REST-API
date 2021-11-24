@@ -9,6 +9,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.Order" alias="order"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.OrderDetail" alias="orderDetail"/>
 	</typeAliases>	
 </configuration>
 
