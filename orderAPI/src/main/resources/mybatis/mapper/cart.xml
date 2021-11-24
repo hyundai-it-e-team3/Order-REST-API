@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.orderAPI.dao.CartDao">
-
-
-
-
+	<select id="selectByMid">
+		SELECT product_detail_id, psize, amount, member_id, cart_id
+		FROM cart
+		WHERE member_id=#{value}
+	</select>
+	<select id="selectCart" parameterType="cart">
+		SELECT product_detail_id, psize, amount, member_id, cart_id
+		FROM cart
+		WHERE member_id=#{memberId} AND product_detail_id=#{productDetailId} AND psize=#{psize} 
+	</select>
+	<update id="update" parameterType="cart">
+		UPDATE cart
+		SET product_detail_id=#{productDetailId}, psize=#{psize}, amount=#{amount}
+		WHERE cart_id=#{cartId}
+	</update>
+	<delete id="delete" parameterType="cart">
+		DELETE FROM cart
+		WHERE cart_id = #{cartId}
+	</delete>
+	<insert id="insert">
+		<selectKey order="BEFORE" resultType="int" keyProperty="cartId">
+			SELECT SEQ_CART.nextval FROM dual
+		</selectKey>
+		INSERT INTO cart
+		(product_detail_id, psize, amount, member_id, cart_id)
+		VALUES
+		(#{productDetailId}, #{psize}, #{amount}, #{memberId}, #{cartId})
+	</insert>	
 </mapper>
