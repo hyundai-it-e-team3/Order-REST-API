@@ -9,4 +9,5 @@ import com.mycompany.orderAPI.dto.order.OrderDetail;
 @Mapper
 public interface OrderDetailDao {
 	public List<OrderDetail> selectByOid(String orderId);
+	public void insert(OrderDetail orderDetail);
 }

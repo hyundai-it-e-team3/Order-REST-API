@@ -50,6 +50,14 @@ public class OrderController{
 		orderService.updateState(order);
 	}
 	
+	@PostMapping("/detail")
+	public void insert(@RequestBody OrderDetail orderDetail) {
+		log.info("실행");
+		log.info("order : " + orderDetail);
+		
+		orderService.insert(orderDetail);
+	}
+	
 	@GetMapping("/detail")
 	public List<OrderDetail> detail(@RequestBody String orderId) { 
 		log.info("실행");

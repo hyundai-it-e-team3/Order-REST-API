@@ -36,6 +36,11 @@ public class OrderService {
 		orderDao.updateState(order);
 	}
 	
+	public void insert(OrderDetail orderDetail) {
+		log.info("실행");
+		orderDetailDao.insert(orderDetail);
+	}
+	
 	public List<OrderDetail> getOrderDetail(String orderId) {
 		log.info("실행");
 		return orderDetailDao.selectByOid(orderId);
