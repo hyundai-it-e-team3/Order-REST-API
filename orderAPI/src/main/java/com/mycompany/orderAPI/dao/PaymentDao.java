@@ -1,8 +1,14 @@
 package com.mycompany.orderAPI.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public class PaymentDao {
+import com.mycompany.orderAPI.dto.order.Payment;
 
+@Mapper
+public interface PaymentDao {
+	public List<Payment> selectByOid(String orderId);
+	public void insert(Payment payment);
+	public void updateState(Payment payment);
 }

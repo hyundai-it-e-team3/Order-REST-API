@@ -10,7 +10,8 @@
 	<typeAliases>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.Order" alias="order"/>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.OrderDetail" alias="orderDetail"/>
-	</typeAliases>	
+		<typeAlias type="com.mycompany.orderAPI.dto.order.Payment" alias="payment"/>
+	</typeAliases>
 </configuration>
 
 

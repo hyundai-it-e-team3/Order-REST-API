@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.orderAPI.dao.OrderDao;
 import com.mycompany.orderAPI.dao.OrderDetailDao;
+import com.mycompany.orderAPI.dao.PaymentDao;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
+import com.mycompany.orderAPI.dto.order.Payment;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +22,8 @@ public class OrderService {
 	private OrderDao orderDao;
 	@Resource
 	private OrderDetailDao orderDetailDao;
+	@Resource
+	private PaymentDao paymentDao;
 	
 	public List<Order> getOrders(String memberId) {
 		log.info("실행");
@@ -49,6 +53,21 @@ public class OrderService {
 	public void updateState(OrderDetail orderDetail) {
 		log.info("실행");
 		orderDetailDao.updateState(orderDetail);
+	}
+	
+	public void insert(Payment payment) {
+		log.info("실행");
+		paymentDao.insert(payment);
+	}
+	
+	public List<Payment> getPayments(String orderId) {
+		log.info("실행");
+		return paymentDao.selectByOid(orderId);
+	}
+	
+	public void updateState(Payment payment) {
+		log.info("실행");
+		paymentDao.updateState(payment);
 	}
 
 }

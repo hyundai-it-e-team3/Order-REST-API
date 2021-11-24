@@ -10,4 +10,5 @@ public class Payment{
 	String bank;
 	int installment;
 	String orderId;
+	char state;
 }

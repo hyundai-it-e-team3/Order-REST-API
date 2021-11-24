@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
+import com.mycompany.orderAPI.dto.order.Payment;
 import com.mycompany.orderAPI.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class OrderController{
 	@PostMapping("/detail")
 	public void insert(@RequestBody OrderDetail orderDetail) {
 		log.info("실행");
-		log.info("order : " + orderDetail);
+		log.info("orderDetail : " + orderDetail);
 		
 		orderService.insert(orderDetail);
 	}
@@ -61,7 +62,7 @@ public class OrderController{
 	@GetMapping("/detail")
 	public List<OrderDetail> detail(@RequestBody String orderId) { 
 		log.info("실행");
-		log.info("order : " + orderId);
+		log.info("orderDetail : " + orderId);
 		
 		return orderService.getOrderDetail(orderId);
 	}
@@ -69,8 +70,32 @@ public class OrderController{
 	@PatchMapping("/detail")
 	public void updateState(@RequestBody OrderDetail orderDetail) {
 		log.info("실행");
-		log.info("order : " + orderDetail);
+		log.info("orderDetail : " + orderDetail);
 		
 		orderService.updateState(orderDetail);
+	}
+	
+	@PostMapping("/payment")
+	public void insert(@RequestBody Payment payment) {
+		log.info("실행");
+		log.info("payment : " + payment);
+		
+		orderService.insert(payment);
+	}
+	
+	@GetMapping("/payment")
+	public List<Payment> payment(@RequestBody String orderId) { 
+		log.info("실행");
+		log.info("orderId : " + orderId);
+		
+		return orderService.getPayments(orderId);
+	}
+	
+	@PatchMapping("/payment")
+	public void updateState(@RequestBody Payment payment) {
+		log.info("실행");
+		log.info("payment : " + payment);
+		
+		orderService.updateState(payment);
 	}
 }
