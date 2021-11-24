@@ -10,4 +10,5 @@ import com.mycompany.orderAPI.dto.order.OrderDetail;
 public interface OrderDetailDao {
 	public List<OrderDetail> selectByOid(String orderId);
 	public void insert(OrderDetail orderDetail);
+	public void updateState(OrderDetail orderDetail);
 }

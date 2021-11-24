@@ -45,5 +45,10 @@ public class OrderService {
 		log.info("실행");
 		return orderDetailDao.selectByOid(orderId);
 	}
+	
+	public void updateState(OrderDetail orderDetail) {
+		log.info("실행");
+		orderDetailDao.updateState(orderDetail);
+	}
 
 }

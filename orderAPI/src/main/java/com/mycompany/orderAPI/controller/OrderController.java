@@ -65,4 +65,12 @@ public class OrderController{
 		
 		return orderService.getOrderDetail(orderId);
 	}
+	
+	@PatchMapping("/detail")
+	public void updateState(@RequestBody OrderDetail orderDetail) {
+		log.info("실행");
+		log.info("order : " + orderDetail);
+		
+		orderService.updateState(orderDetail);
+	}
 }
