@@ -1,4 +1,4 @@
-package com.mycompany.orderAPI.dto;
+package com.mycompany.orderAPI.dto.order;
 
 import java.util.Date;
 
