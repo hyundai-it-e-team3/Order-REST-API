@@ -1,0 +1,8 @@
+package com.mycompany.orderAPI.dao;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public class OrderDetailDao {
+
+}

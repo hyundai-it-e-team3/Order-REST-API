@@ -1,5 +1,13 @@
 package com.mycompany.orderAPI.dao;
 
-public class OrderDao {
+import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
+import com.mycompany.orderAPI.dto.order.Order;
+
+@Mapper
+public interface OrderDao {
+	public List<Order> selectByMid(String memberId);
+	public void insert(Order order);
 }
