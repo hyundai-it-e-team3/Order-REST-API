@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mycompany.orderAPI.dto.member.Member;
+import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +25,11 @@ public class OrderController{
 	private OrderService orderService;
 	
 	@GetMapping("/list")
-	public Map<String, Object> list(@RequestBody String mid) {
+	public Map<String, Object> list(@RequestBody Member member) {
 		log.info("실행");
-		log.info("memberId : " + mid);
+		log.info("memberId : " + member);
 		
-		List<Order> list = orderService.getOrders(mid);
+		List<Order> list = orderService.getOrders(member.getMemberId());
 		Map<String, Object> map = new HashMap<>();
 		map.put("orders", list);
 		
