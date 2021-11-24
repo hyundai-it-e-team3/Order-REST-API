@@ -26,5 +26,10 @@ public class OrderService {
 		log.info("실행");
 		orderDao.insert(order);
 	}
+	
+	public void updateState(Order order) {
+		log.info("실행");
+		orderDao.updateState(order);
+	}
 
 }
