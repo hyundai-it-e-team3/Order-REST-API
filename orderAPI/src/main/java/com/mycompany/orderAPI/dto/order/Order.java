@@ -1,6 +1,7 @@
 package com.mycompany.orderAPI.dto.order;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -19,4 +20,6 @@ public class Order {
 	String tel;
 	String recName;
 	String couponId;
+	List<OrderDetail> orderDetailList;
+	List<Payment> paymentList;
 }

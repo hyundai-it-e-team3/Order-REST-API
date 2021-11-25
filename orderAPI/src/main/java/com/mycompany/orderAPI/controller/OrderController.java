@@ -33,7 +33,7 @@ public class OrderController{
 		log.info("실행");
 		log.info("order : " + order);
 		
-		orderService.insert(order);
+		orderService.insertOrder(order);
 	}
 	
 	@GetMapping("/list")
@@ -45,6 +45,7 @@ public class OrderController{
 		return list;
 	}
 	
+	
 	@GetMapping("/{orderId}") 
 	public Map<String, Object> getOrderInfo(
 			@PathVariable String orderId, 
@@ -54,6 +55,7 @@ public class OrderController{
 
 		return orderService.getOrderInfo(member, orderId);
 	}
+	
 	
 	@PatchMapping("/state")
 	public void updateState(@RequestBody Order order) {
