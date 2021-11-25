@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.orderAPI.dao.OdTimelineDao">
+	<insert id="insert" parameterType="orderDetail">
+		INSERT INTO od_timeline
+		(psize, product_detail_id, order_id, issue_date, state)
+		VALUES (#{psize}, #{productDetailId}, #{orderId}, sysdate, #{state})
+	</insert>
+	<select id="select" parameterType="orderDetail" resultType="odTimeline">
+		SELECT issue_date, state
+		FROM od_timeline
+		WHERE order_id = #{orderId} AND product_detail_id = #{productDetailId} AND psize = #{psize}
+		ORDER BY issue_date
+	</select>
+</mapper>

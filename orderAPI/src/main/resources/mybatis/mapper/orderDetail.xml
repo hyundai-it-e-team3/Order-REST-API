@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.orderAPI.dao.OrderDetailDao">
 	<select id="selectByOid" resultType="orderDetail" parameterType="String">
-		SELECT od.product_name, od.brand_name, od.psize, od.order_id, od.amount, od.price, od.delivery_state, delivery_no
+		SELECT od.product_name, od.brand_name, od.psize, od.order_id, od.amount, od.price, od.state, delivery_no
 		FROM order_detail od
 		WHERE od.order_id = #{value}
 	</select>
 	<insert id="insert" parameterType="orderDetail">
 		INSERT INTO order_detail
-		(product_detail_id, product_name, brand_name, psize, order_id, amount, price, delivery_state, delivery_no)
-		VALUES (#{productDetailId}, #{productName}, #{brandName}, #{psize}, #{orderId}, #{amount}, #{price}, #{deliveryState}, #{deliveryNo})
+		(product_detail_id, product_name, brand_name, psize, order_id, amount, price, state, delivery_no)
+		VALUES (#{productDetailId}, #{productName}, #{brandName}, #{psize}, #{orderId}, #{amount}, #{price}, #{state}, #{deliveryNo})
 	</insert>
 	<update id="updateState" parameterType="order">
 		UPDATE order_detail
-		SET delivery_state = #{deliveryState}
+		SET state = #{state}
 		WHERE product_detail_id = #{productDetailId} AND order_id = #{orderId} AND psize = #{psize}
 	</update>
 	

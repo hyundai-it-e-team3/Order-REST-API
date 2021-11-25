@@ -8,8 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mycompany.orderAPI.dao.OTimelineDao;
+import com.mycompany.orderAPI.dao.OdTimelineDao;
 import com.mycompany.orderAPI.dao.OrderDao;
 import com.mycompany.orderAPI.dao.OrderDetailDao;
+import com.mycompany.orderAPI.dao.PTimelineDao;
 import com.mycompany.orderAPI.dao.PaymentDao;
 import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Order;
@@ -21,12 +24,23 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class OrderService {
+	public enum OrderResult {
+		SUCCESS,
+		FAIL
+	}
+	
 	@Resource
 	private OrderDao orderDao;
 	@Resource
 	private OrderDetailDao orderDetailDao;
 	@Resource
 	private PaymentDao paymentDao;
+	@Resource 
+	private OdTimelineDao odTimelineDao;
+	@Resource
+	private OTimelineDao oTimelineDao;
+	@Resource
+	private PTimelineDao pTimelineDao;
 	
 	public Map<String, Object> getOrderInfo(
 			Member member,
@@ -58,19 +72,42 @@ public class OrderService {
 		return orderDao.selectByMid(memberId);
 	}
 	
+	public OrderResult insertOrder(Order order) {
+		log.info("실행");
+		orderDao.insert(order);
+		oTimelineDao.insert(order);
+		
+		List<Payment> pList = order.getPaymentList();
+		for(Payment payment : pList) {
+			paymentDao.insert(payment);
+			pTimelineDao.insert(payment);
+		}
+		
+		List<OrderDetail> odList = order.getOrderDetailList();
+		for(OrderDetail orderDetail : odList) {
+			orderDetailDao.insert(orderDetail);
+			odTimelineDao.insert(orderDetail);
+		}
+		
+		return OrderResult.SUCCESS;
+	}
+	
 	public void insert(Order order) {
 		log.info("실행");
 		orderDao.insert(order);
+		oTimelineDao.insert(order);
 	}
 	
 	public void updateState(Order order) {
 		log.info("실행");
 		orderDao.updateState(order);
+		oTimelineDao.insert(order);
 	}
 	
 	public void insert(OrderDetail orderDetail) {
 		log.info("실행");
 		orderDetailDao.insert(orderDetail);
+		odTimelineDao.insert(orderDetail);
 	}
 	
 	public List<OrderDetail> getOrderDetail(String orderId) {
@@ -81,11 +118,13 @@ public class OrderService {
 	public void updateState(OrderDetail orderDetail) {
 		log.info("실행");
 		orderDetailDao.updateState(orderDetail);
+		odTimelineDao.insert(orderDetail);
 	}
 	
 	public void insert(Payment payment) {
 		log.info("실행");
 		paymentDao.insert(payment);
+		pTimelineDao.insert(payment);
 	}
 	
 	public List<Payment> getPayments(String orderId) {
@@ -96,6 +135,7 @@ public class OrderService {
 	public void updateState(Payment payment) {
 		log.info("실행");
 		paymentDao.updateState(payment);
+		pTimelineDao.insert(payment);
 	}
 
 }

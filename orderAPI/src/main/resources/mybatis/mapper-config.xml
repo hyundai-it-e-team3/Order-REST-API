@@ -12,6 +12,9 @@
 		<typeAlias type="com.mycompany.orderAPI.dto.order.OrderDetail" alias="orderDetail"/>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.Payment" alias="payment"/>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.Cart" alias="cart"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.OdTimeline" alias="odTimeline"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.OTimeline" alias="oTimeline"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.PTimeline" alias="pTimeline"/>
 	</typeAliases>
 </configuration>
 

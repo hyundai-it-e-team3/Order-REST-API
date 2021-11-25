@@ -11,6 +11,6 @@ public class OrderDetail {
 	String orderId;
 	int amount;
 	int price;
-	char deliveryState;
+	char state;
 	String deliveryNo;
 }
