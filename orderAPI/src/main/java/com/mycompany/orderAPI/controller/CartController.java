@@ -25,15 +25,21 @@ public class CartController {
 	@Resource CartService cartService;
 	
 	@GetMapping
-	public List<Cart> getCarts(@RequestBody Member member) {
+	public List<Cart> getCarts() {
 		log.info("실행");
-		return cartService.getCarts(member);
+		Member member = new Member();
+		member.setMemberId("user1");
+		List<Cart> cartList = cartService.getCarts(member);
+		System.out.println(cartList);
+		return cartList;
 	}
 	
 	@PostMapping
-	public void insert(@RequestBody Cart cart) {
+	public void insert(Cart cart) {
 		log.info("실행");
+		log.info(cart.toString());
 		cartService.insert(cart);
+		
 	}
 	
 	@PatchMapping

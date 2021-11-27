@@ -8,5 +8,5 @@ public class Cart {
 	String psize;
 	int amount;
 	String memberId;
-	String cartId;
+	int cartId;
 }
