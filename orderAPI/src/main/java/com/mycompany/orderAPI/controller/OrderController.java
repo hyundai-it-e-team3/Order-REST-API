@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.orderAPI.dto.member.Member;
@@ -37,11 +38,11 @@ public class OrderController{
 	}
 	
 	@GetMapping("/list")
-	public List<Order> list(@RequestBody Member member) {
+	public List<Order> list(@RequestParam String memberId) {
 		log.info("실행");
-		log.info("member : " + member);
+		log.info("member : " + memberId);
 		
-		List<Order> list = orderService.getOrders(member.getMemberId()); 
+		List<Order> list = orderService.getOrders(memberId); 
 		return list;
 	}
 	
@@ -54,6 +55,14 @@ public class OrderController{
 		log.info("member : " + member);
 
 		return orderService.getOrderInfo(member, orderId);
+	}
+	@GetMapping("/{orderId}/list") 
+	public List<OrderDetail> getOrderProductList(
+			@PathVariable String orderId) {
+		log.info("실행");
+		log.info("orderId : " + orderId);
+
+		return orderService.getOrderDetail(orderId);
 	}
 	
 	
