@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.orderAPI.dto.member.Member;
@@ -28,9 +29,10 @@ public class CartController {
 	@Resource CartService cartService;
 	
 	@GetMapping
-	public List<Cart> getCarts() {
+	public List<Cart> getCarts(@RequestParam String memberId) {
 		log.info("실행");
 		Member member = new Member();
+		member.setMemberId(memberId);
 		List<Cart> cartList = cartService.getCarts(member);
 		System.out.println(cartList);
 		return cartList;

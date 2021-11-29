@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mycompany.orderAPI.dto.order.OrderDetail;
+import com.mycompany.orderAPI.dto.product.ProductDTO;
 
 @Mapper
 public interface OrderDetailDao {

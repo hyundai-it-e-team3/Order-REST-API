@@ -18,6 +18,7 @@ import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
 import com.mycompany.orderAPI.dto.order.Payment;
+import com.mycompany.orderAPI.dto.product.ProductDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -136,6 +137,11 @@ public class OrderService {
 		log.info("실행");
 		paymentDao.updateState(payment);
 		pTimelineDao.insert(payment);
+	}
+	
+	public List<OrderDetail> getOrderProducts(String orderId) {
+		log.info("실행");
+		return orderDetailDao.selectByOid(orderId);
 	}
 
 }
