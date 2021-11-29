@@ -16,12 +16,12 @@
 		SET product_detail_id=#{productDetailId}, psize=#{psize}, amount=#{amount}
 		WHERE cart_id=#{cartId}
 	</update>
-	<delete id="delete" parameterType="cart">
+	<delete id="delete">
 		DELETE FROM cart
-		WHERE cart_id = #{cartId}
+		WHERE cart_id = #{value}
 	</delete>
 	<insert id="insert" parameterType="cart">
-		<selectKey order="BEFORE" resultType="int" keyProperty="cartId">
+		<selectKey order="BEFORE" resultType="string" keyProperty="cartId">
 			SELECT SEQ_CART.nextval FROM dual
 		</selectKey>
 		INSERT INTO cart

@@ -1,12 +1,15 @@
 package com.mycompany.orderAPI.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,19 +42,24 @@ public class CartController {
 		log.info("실행");
 		log.info(cart.toString());
 		cartService.insert(cart);
-		
 	}
 	
-	@PatchMapping
-	public void update(@RequestBody Cart cart) {
+	@PatchMapping("/{cartId}")
+	public void update(
+			@PathVariable String cartId,
+			@RequestBody Cart cart) {
 		log.info("실행");
+		cart.setCartId(cartId);
 		cartService.update(cart);
 	}
 	
-	@DeleteMapping
-	public void delete(@RequestBody Cart cart) {
+	@DeleteMapping("/{cartId}")
+	public Map<String, String> delete(@PathVariable String cartId) {
 		log.info("실행");
-		cartService.delete(cart);
+		cartService.delete(cartId);
+		Map<String,String> map = new HashMap<>();
+		map.put("result", "success");
+		return map;
 	}
 	
 	
