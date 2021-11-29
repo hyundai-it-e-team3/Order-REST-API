@@ -36,8 +36,8 @@ public class CartService {
 		}
 	}
 	
-	public void delete(Cart cart) {
-		cartDao.delete(cart);
+	public void delete(String cartId) {
+		cartDao.delete(cartId);
 	}
 	
 	public CartResult update(Cart cart) {
@@ -48,7 +48,7 @@ public class CartService {
 		} else {
 			dbCart.setAmount(cart.getAmount()+dbCart.getAmount());
 			cartDao.update(dbCart);
-			cartDao.delete(cart);
+			cartDao.delete(cart.getCartId());
 			return CartResult.SUCCESS_DUPLICATE;
 		}
 	}
