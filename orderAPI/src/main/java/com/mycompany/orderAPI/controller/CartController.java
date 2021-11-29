@@ -31,24 +31,15 @@ public class CartController {
 	public List<Cart> getCarts() {
 		log.info("실행");
 		Member member = new Member();
-		member.setMemberId("user1");
-<<<<<<< Updated upstream
 		List<Cart> cartList = cartService.getCarts(member);
 		System.out.println(cartList);
 		return cartList;
-=======
-		return cartService.getCarts(member);
->>>>>>> Stashed changes
 	}
 	
 	@PostMapping
 	public void insert(Cart cart) {
 		log.info("실행");
-<<<<<<< Updated upstream
 		log.info(cart.toString());
-=======
-		cart.setMemberId("user1");
->>>>>>> Stashed changes
 		cartService.insert(cart);
 	}
 	
