@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.orderAPI.dao.PaymentDao">
+	<select id="selectByOid" resultType="payment" parameterType="String">
+		SELECT type, price, account_no, bank, installment, state
+		FROM payment
+		WHERE order_id = #{value}
+	</select>
+	<insert id="insert" parameterType="payment">
+		INSERT INTO payment
+		(type, price, account_no, bank, installment, order_id, state)
+		VALUES (#{type}, #{price}, #{accountNo}, #{bank}, #{installment}, #{orderId}, #{state})
+	</insert>
+	<update id="updateState" parameterType="payment">
+		UPDATE payment
+		SET state = #{state}
+		WHERE order_id = #{orderId} AND type=#{type}
+	</update>
+</mapper>

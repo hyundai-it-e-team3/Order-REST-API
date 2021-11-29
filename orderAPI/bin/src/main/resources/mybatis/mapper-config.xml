@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="callSettersOnNulls" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.Order" alias="order"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.OrderDetail" alias="orderDetail"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.Payment" alias="payment"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.Cart" alias="cart"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.OdTimeline" alias="odTimeline"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.OTimeline" alias="oTimeline"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.order.PTimeline" alias="pTimeline"/>
+	</typeAliases>
+</configuration>
+
+
+
