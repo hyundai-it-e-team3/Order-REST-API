@@ -44,13 +44,11 @@ public class OrderService {
 	private PTimelineDao pTimelineDao;
 	
 	public Map<String, Object> getOrderInfo(
-			Member member,
 			String orderId) {
 		
 		Map<String, Object> map = new HashMap<>();
 		log.info(orderId);
-		log.info(member.getMemberId());
-		Order order = orderDao.selectByOidMid(orderId, member.getMemberId());
+		Order order = orderDao.selectByOid(orderId);
 		
 		if(order == null) {
 			map.put("result", "fail");
