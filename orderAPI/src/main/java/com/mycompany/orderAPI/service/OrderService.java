@@ -93,10 +93,11 @@ public class OrderService {
 		return OrderResult.SUCCESS;
 	}
 	
-	public void insert(Order order) {
+	public String insert(Order order) {
 		log.info("실행");
 		orderDao.insert(order);
 		oTimelineDao.insert(order);
+		return order.getOrderId();
 	}
 	
 	public void updateState(Order order) {

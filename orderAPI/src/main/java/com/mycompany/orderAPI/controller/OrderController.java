@@ -30,11 +30,11 @@ public class OrderController{
 	private OrderService orderService;
 	
 	@PostMapping
-	public void insert(@RequestBody Order order) {
+	public String insertOrder(Order order) {
 		log.info("실행");
 		log.info("order : " + order);
 		
-		orderService.insertOrder(order);
+		return orderService.insert(order);
 	}
 	
 	@GetMapping("/list")
@@ -75,7 +75,7 @@ public class OrderController{
 	}
 	
 	@PostMapping("/detail")
-	public void insert(@RequestBody OrderDetail orderDetail) {
+	public void insert(OrderDetail orderDetail) {
 		log.info("실행");
 		log.info("orderDetail : " + orderDetail);
 		
@@ -99,7 +99,7 @@ public class OrderController{
 	}
 	
 	@PostMapping("/payment")
-	public void insert(@RequestBody Payment payment) {
+	public void insert(Payment payment) {
 		log.info("실행");
 		log.info("payment : " + payment);
 		
