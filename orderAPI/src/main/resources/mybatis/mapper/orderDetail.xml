@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.orderAPI.dao.OrderDetailDao">
 	<select id="selectByOid" resultType="orderDetail" parameterType="String">
-		SELECT od.product_name, od.brand_name, od.psize, od.order_id, od.amount, od.price, od.state, delivery_no
+		SELECT od.product_name, od.brand_name, od.psize, od.order_id, od.amount, od.price, od.state, delivery_no, od.product_detail_id
 		FROM order_detail od
 		WHERE od.order_id = #{value}
 	</select>

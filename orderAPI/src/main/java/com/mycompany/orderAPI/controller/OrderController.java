@@ -49,13 +49,13 @@ public class OrderController{
 	
 	@GetMapping("/{orderId}") 
 	public Map<String, Object> getOrderInfo(
-			@PathVariable String orderId, 
-			@RequestBody Member member) {
+			@PathVariable String orderId) {
 		log.info("실행");
-		log.info("member : " + member);
+		log.info("orderId : " + orderId);
 
-		return orderService.getOrderInfo(member, orderId);
+		return orderService.getOrderInfo(orderId);
 	}
+	
 	@GetMapping("/{orderId}/list") 
 	public List<OrderDetail> getOrderProductList(
 			@PathVariable String orderId) {
