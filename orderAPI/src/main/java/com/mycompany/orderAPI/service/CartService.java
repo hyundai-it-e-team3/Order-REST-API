@@ -52,4 +52,7 @@ public class CartService {
 			return CartResult.SUCCESS_DUPLICATE;
 		}
 	}
+	public Cart getCart(String cartId) {
+		return cartDao.selectByCid(cartId);
+	}
 }

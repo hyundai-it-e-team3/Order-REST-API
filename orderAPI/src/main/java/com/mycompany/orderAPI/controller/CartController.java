@@ -28,6 +28,11 @@ import lombok.extern.slf4j.Slf4j;
 public class CartController {
 	@Resource CartService cartService;
 	
+	@GetMapping("/{cartId}")
+	public Cart getCart(@PathVariable String cartId) {
+		return cartService.getCart(cartId);
+	}
+	
 	@GetMapping
 	public List<Cart> getCarts(@RequestParam String memberId) {
 		log.info("실행");
