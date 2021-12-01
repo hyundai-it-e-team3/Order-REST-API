@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class OrderDetail {
 	String productDetailId;
-	String productName;
-	String brandName;
 	String psize;
 	String orderId;
 	int amount;

@@ -6,6 +6,11 @@
 		FROM cart
 		WHERE member_id=#{value}
 	</select>
+	<select id="selectByCid" resultType="cart">
+		SELECT product_detail_id, psize, amount, member_id, cart_id
+		FROM cart
+		WHERE cart_id=#{value}
+	</select>
 	<select id="selectCart" parameterType="cart" resultType="cart">
 		SELECT product_detail_id, psize, amount, member_id, cart_id
 		FROM cart

@@ -13,4 +13,5 @@ public interface CartDao {
 	public void update(Cart cart);
 	public void delete(String cartId);
 	public Cart selectCart(Cart cart);
+	public Cart selectByCid(String cartId);
 }
