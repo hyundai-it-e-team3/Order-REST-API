@@ -50,13 +50,22 @@ public class CartController {
 		cartService.insert(cart);
 	}
 	
-	@PatchMapping("/{cartId}")
+	@PostMapping("/{cartId}")
 	public void update(
 			@PathVariable String cartId,
-			@RequestBody Cart cart) {
+			Cart cart) {
 		log.info("실행");
 		cart.setCartId(cartId);
 		cartService.update(cart);
+	}
+	
+	@PatchMapping("/{cartId}")
+	public void updateAmount(
+			@PathVariable String cartId,
+			@RequestBody Cart cart) {
+		log.info("실행");
+		log.info("amount : " + cart);
+		cartService.updateAmount(cartId, cart.getAmount());
 	}
 	
 	@DeleteMapping("/{cartId}")
