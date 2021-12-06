@@ -52,6 +52,15 @@ public class CartService {
 			return CartResult.SUCCESS_DUPLICATE;
 		}
 	}
+	
+	public void updateAmount(String cartId, int amount) {
+		Cart cart = new Cart();
+		cart.setCartId(cartId);
+		cart.setAmount(amount);
+		cartDao.updateAmount(cart);
+	}
+	
+	
 	public Cart getCart(String cartId) {
 		return cartDao.selectByCid(cartId);
 	}

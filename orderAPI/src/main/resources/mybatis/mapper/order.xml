@@ -6,32 +6,32 @@
 			SELECT SEQ_ORDER.nextval FROM dual
 		</selectKey>
 		INSERT into morder 
-		(order_id, member_id, order_date, total_price, discount_price, state, request, zip_code, address1, address2, tel, rec_name, coupon_id)
+		(order_id, member_id, order_date, state, request, zip_code, address1, address2, tel, name, coupon_id)
 		VALUES 
-		(#{orderId}, #{memberId}, sysdate, #{totalPrice}, #{discountPrice}, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{recName}, #{couponId})
+		(#{orderId}, #{memberId}, sysdate, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{name}, #{couponId})
 	</insert>
 	
 	<select id="selectByOid" resultType="order" parameterType="String">
-		SELECT member_id, order_date, total_price, discount_price, state, request, zip_code, address1, address2, tel, tel, rec_name, coupon_id
+		SELECT member_id, order_date, state, request, zip_code, address1, address2, tel, name, coupon_id
 		FROM morder
 		WHERE order_id = #{value}
 	</select>
 	
 	<select id="selectByOidMid" resultType="order" parameterType="Map">
-		SELECT order_date, total_price, discount_price, state, request, zip_code, address1, address2, tel, tel, rec_name, coupon_id
+		SELECT order_date, state, request, zip_code, address1, address2, tel, name, coupon_id
 		FROM morder
 		WHERE order_id = #{orderId} AND member_id = #{memberId} 
 	</select>
 	
 	<select id="selectByMid" resultType="order" parameterType="String">
-		SELECT order_id, order_date, total_price, state
+		SELECT order_id, order_date, state
 		FROM morder
 		WHERE member_id=#{value}
 		ORDER BY order_date DESC
 	</select>
 	
 	<select id="selectByMidJoin" resultType="order" parameterType="String">
-		SELECT o.order_id, o.order_date, o.total_price,
+		SELECT o.order_id, o.order_date,
 		    od.product_name, od.psize, od.amount, od.state
 		FROM morder o, order_detail od
 		WHERE o.member_id=#{value} AND o.order_id = od. order_id(+)
@@ -43,6 +43,8 @@
 		SET state = #{state}
 		WHERE order_id = #{orderId}
 	</update>
+	
+	
 
 </mapper>
 

@@ -21,6 +21,11 @@
 		SET product_detail_id=#{productDetailId}, psize=#{psize}, amount=#{amount}
 		WHERE cart_id=#{cartId}
 	</update>
+	<update id="updateAmount" parameterType="cart">
+		UPDATE cart
+		SET amount = #{amount}
+		WHERE cart_id=#{cartId}
+	</update>
 	<delete id="delete">
 		DELETE FROM cart
 		WHERE cart_id = #{value}
