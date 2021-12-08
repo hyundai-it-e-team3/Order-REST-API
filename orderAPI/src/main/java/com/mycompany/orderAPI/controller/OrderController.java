@@ -36,17 +36,8 @@ public class OrderController{
 	@Resource
 	private StockService stockService;
 	
-	@PostMapping
-	public String insertOrder(Order order) {
-		log.info("실행");
-		log.info("order : " + order);
-		
-		orderService.insert(order);
-		
-		return "SUCCESS";
-	}
 	
-	@PostMapping("/test")
+	@PostMapping
 	public String insertOrderTotal(@RequestBody Order order) {
 		log.info("실행");
 		log.info("order : " + order);
