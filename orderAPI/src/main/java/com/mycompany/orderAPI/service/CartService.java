@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.mycompany.orderAPI.dao.CartDao;
+import com.mycompany.orderAPI.dao.orderDB.CartDao;
 import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Cart;
 

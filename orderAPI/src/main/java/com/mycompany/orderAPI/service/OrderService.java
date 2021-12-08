@@ -8,17 +8,15 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.mycompany.orderAPI.dao.OTimelineDao;
-import com.mycompany.orderAPI.dao.OdTimelineDao;
-import com.mycompany.orderAPI.dao.OrderDao;
-import com.mycompany.orderAPI.dao.OrderDetailDao;
-import com.mycompany.orderAPI.dao.PTimelineDao;
-import com.mycompany.orderAPI.dao.PaymentDao;
-import com.mycompany.orderAPI.dto.member.Member;
+import com.mycompany.orderAPI.dao.orderDB.OTimelineDao;
+import com.mycompany.orderAPI.dao.orderDB.OdTimelineDao;
+import com.mycompany.orderAPI.dao.orderDB.OrderDao;
+import com.mycompany.orderAPI.dao.orderDB.OrderDetailDao;
+import com.mycompany.orderAPI.dao.orderDB.PTimelineDao;
+import com.mycompany.orderAPI.dao.orderDB.PaymentDao;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
 import com.mycompany.orderAPI.dto.order.Payment;
-import com.mycompany.orderAPI.dto.product.ProductDTO;
 
 import lombok.extern.slf4j.Slf4j;
 

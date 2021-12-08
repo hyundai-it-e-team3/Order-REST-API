@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Resource
+	@Resource(name="memberDBDataSource")
 	private DataSource dataSource;
 	
 	
@@ -42,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//요청 경로 권한 설정
 		http.authorizeRequests()
-			.antMatchers("/board/**").authenticated()
+			.antMatchers("/cart/**").authenticated()
+			.antMatchers("/order/**").authenticated()
 			.antMatchers("/**").permitAll();
 		
 		//세션 비활성화
