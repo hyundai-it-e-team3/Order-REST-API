@@ -1,9 +1,11 @@
 package com.mycompany.orderAPI.dao.memberDB;
 
-import java.awt.Point;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.mycompany.orderAPI.dto.member.Point;
 
 @Mapper
 public interface PointDao {

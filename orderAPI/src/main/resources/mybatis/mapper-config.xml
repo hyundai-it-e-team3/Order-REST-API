@@ -15,6 +15,12 @@
 		<typeAlias type="com.mycompany.orderAPI.dto.order.OdTimeline" alias="odTimeline"/>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.OTimeline" alias="oTimeline"/>
 		<typeAlias type="com.mycompany.orderAPI.dto.order.PTimeline" alias="pTimeline"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.product.StockDTO" alias="stock"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.member.Member" alias="member"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.member.Point" alias="point"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.member.MemberCoupon" alias="memberCoupon"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.member.DetailPoint" alias="detailPoint"/>
+		
 	</typeAliases>
 </configuration>
 

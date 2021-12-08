@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mybatis.memberDB.member"></mapper>
+
+<mapper namespace="com.mycompany.orderAPI.dao.memberDB.MemberDao">
+	<update id="updatePointBalance" parameterType="member">
+		UPDATE member
+		SET point = (SELECT point FROM member WHERE member_id = #{memberId}) + #{point}
+		WHERE member_id = #{memberId}
+	</update>
+	<select id="getMemberPoint" parameterType="String" resultType="int">
+		SELECT point
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
+
+</mapper>

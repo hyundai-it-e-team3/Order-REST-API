@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
 import com.mycompany.orderAPI.dto.order.Payment;
 import com.mycompany.orderAPI.service.OrderService;
+import com.mycompany.orderAPI.service.PointService;
+import com.mycompany.orderAPI.service.StockService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,12 +30,30 @@ public class OrderController{
 	@Resource
 	private OrderService orderService;
 	
+	@Resource
+	private PointService pointService;
+	
+	@Resource
+	private StockService stockService;
+	
 	@PostMapping
 	public String insertOrder(Order order) {
 		log.info("실행");
 		log.info("order : " + order);
 		
-		return orderService.insert(order);
+		orderService.insert(order);
+		
+		return "SUCCESS";
+	}
+	
+	@PostMapping("/test")
+	public String insertOrderTotal(@RequestBody Order order) {
+		log.info("실행");
+		log.info("order : " + order);
+		
+		orderService.insertOrder(order);
+		
+		return "SUCCESS";
 	}
 	
 	@GetMapping("/list")

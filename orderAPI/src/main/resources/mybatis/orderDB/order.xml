@@ -6,19 +6,19 @@
 			SELECT SEQ_ORDER.nextval FROM dual
 		</selectKey>
 		INSERT into morder 
-		(order_id, member_id, order_date, state, request, zip_code, address1, address2, tel, rec_name, coupon_id)
+		(order_id, member_id, order_date, state, request, zip_code, address1, address2, tel, name, coupon_id)
 		VALUES 
-		(#{orderId}, #{memberId}, sysdate, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{recName}, #{couponId})
+		(#{orderId}, #{memberId}, sysdate, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{name}, #{couponId})
 	</insert>
 	
 	<select id="selectByOid" resultType="order" parameterType="String">
-		SELECT member_id, order_date, state, request, zip_code, address1, address2, tel, tel, rec_name, coupon_id
+		SELECT member_id, order_date, state, request, zip_code, address1, address2, tel, tel, name, coupon_id
 		FROM morder
 		WHERE order_id = #{value}
 	</select>
 	
 	<select id="selectByOidMid" resultType="order" parameterType="Map">
-		SELECT order_date, state, request, zip_code, address1, address2, tel, tel, rec_name, coupon_id
+		SELECT order_date, state, request, zip_code, address1, address2, tel, tel, name, coupon_id
 		FROM morder
 		WHERE order_id = #{orderId} AND member_id = #{memberId} 
 	</select>

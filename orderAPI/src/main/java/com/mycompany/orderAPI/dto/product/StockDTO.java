@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StockDTO {
-	private String size;
+	private String psize;
 	private int amount;
 	private String productDetailId;
 }
