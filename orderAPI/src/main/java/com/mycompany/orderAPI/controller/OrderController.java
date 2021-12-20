@@ -1,5 +1,6 @@
 package com.mycompany.orderAPI.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
 import com.mycompany.orderAPI.dto.order.Payment;
 import com.mycompany.orderAPI.service.OrderService;
+import com.mycompany.orderAPI.service.OrderService.OrderResult;
 import com.mycompany.orderAPI.service.PointService;
 import com.mycompany.orderAPI.service.StockService;
 
@@ -130,5 +132,19 @@ public class OrderController{
 		log.info("payment : " + payment);
 		
 		orderService.updateState(payment);
+	}
+	
+	@PatchMapping("/address")
+	public Map<String, Object> updateAddress(@RequestBody Order order) {
+		log.info("실행");
+		log.info("배송지 수정 : " + order);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		OrderResult or = orderService.updateAddress(order);
+		if(or == OrderResult.SUCCESS) resultMap.put("result", "success");
+		else resultMap.put("result", "fail");
+		
+		return resultMap;
 	}
 }

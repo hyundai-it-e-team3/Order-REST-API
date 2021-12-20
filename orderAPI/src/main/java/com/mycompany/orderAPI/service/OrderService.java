@@ -15,7 +15,6 @@ import com.mycompany.orderAPI.dao.orderDB.OrderDao;
 import com.mycompany.orderAPI.dao.orderDB.OrderDetailDao;
 import com.mycompany.orderAPI.dao.orderDB.PTimelineDao;
 import com.mycompany.orderAPI.dao.orderDB.PaymentDao;
-import com.mycompany.orderAPI.dto.member.DetailPoint;
 import com.mycompany.orderAPI.dto.member.Point;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
@@ -168,6 +167,15 @@ public class OrderService {
 	public List<OrderDetail> getOrderProducts(String orderId) {
 		log.info("실행");
 		return orderDetailDao.selectByOid(orderId);
+	}
+	
+	public OrderResult updateAddress(Order order) {
+		log.info("실행");
+		Order nOrder = orderDao.selectByOid(order.getOrderId());
+		if(nOrder.getStateCode() != 1) return OrderResult.FAIL;
+		
+		orderDao.updateAddress(order);
+		return OrderResult.SUCCESS;
 	}
 
 }

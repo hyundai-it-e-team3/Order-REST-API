@@ -6,42 +6,52 @@
 			SELECT SEQ_ORDER.nextval FROM dual
 		</selectKey>
 		INSERT into morder 
-		(order_id, member_id, order_date, state, request, zip_code, address1, address2, tel, name, coupon_id)
+		(order_id, member_id, order_date, state_code, request, zip_code, address1, address2, tel, name, coupon_id)
 		VALUES 
 		(#{orderId}, #{memberId}, sysdate, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{name}, #{couponId})
 	</insert>
 	
 	<select id="selectByOid" resultType="order" parameterType="String">
-		SELECT member_id, order_date, state, request, zip_code, address1, address2, tel, tel, name, coupon_id
-		FROM morder
-		WHERE order_id = #{value}
+		SELECT o.member_id, o.order_date, o.state_code, os.state, o.request, o.zip_code, o.address1, o.address2, o.tel, o.name, o.coupon_id
+		FROM morder o, order_state os
+		WHERE order_id = #{value} AND o.state_code = os.state_code
 	</select>
 	
 	<select id="selectByOidMid" resultType="order" parameterType="Map">
-		SELECT order_date, state, request, zip_code, address1, address2, tel, tel, name, coupon_id
-		FROM morder
-		WHERE order_id = #{orderId} AND member_id = #{memberId} 
+		SELECT o.order_date, o.state_code, os.state, o.request, o.zip_code, o.address1, o.address2, o.tel, o.name, o.coupon_id
+		FROM morder o, order_state os
+		WHERE order_id = #{orderId} AND member_id = #{memberId} AND o.state_code = os.state_code
 	</select>
 	
 	<select id="selectByMid" resultType="order" parameterType="String">
-		SELECT order_id, order_date, state
-		FROM morder
-		WHERE member_id=#{value}
-		ORDER BY order_date DESC
+		SELECT o.order_id, o.order_date, o.state_code, os.state
+		FROM morder o, order_state os
+		WHERE member_id=#{value} AND o.state_code = os.state_code
+		ORDER BY order_date DESC 
 	</select>
 	
 	<select id="selectByMidJoin" resultType="order" parameterType="String">
-		SELECT o.order_id, o.order_date, 
-		    od.product_name, od.psize, od.amount, od.state
-		FROM morder o, order_detail od
-		WHERE o.member_id=#{value} AND o.order_id = od. order_id(+)
+		SELECT o.order_id, o.order_date, o.state_code,
+		    od.product_name, od.psize, od.amount, ods.state
+		FROM morder o, order_detail od, od_state ods
+		WHERE o.member_id=#{value} AND o.order_id = od. order_id(+) AND od.state_code = ods.state_code
 		ORDER BY order_date DESC
 	</select>
 	
 	<update id="updateState" parameterType="order">
 		UPDATE morder
-		SET state = #{state}
+		SET state_code = #{stateCode}
 		WHERE order_id = #{orderId}
+	</update>
+	
+	<update id="updateAddress" parameterType="order">
+		UPDATE morder
+		SET zip_code = #{zipCode}, address1 = #{address1}, address2 = #{address2}, name=#{name}, tel=#{tel}, request=#{request}
+		WHERE order_id = #{orderId}	
+	</update>
+	
+	<update id="cancelOrder" parameterType="order">
+		
 	</update>
 
 </mapper>
