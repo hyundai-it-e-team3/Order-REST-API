@@ -9,6 +9,7 @@ public class OrderDetail {
 	String orderId;
 	int amount;
 	int price;
-	char state;
+	String state;
+	int stateCode;
 	String deliveryNo;
 }
