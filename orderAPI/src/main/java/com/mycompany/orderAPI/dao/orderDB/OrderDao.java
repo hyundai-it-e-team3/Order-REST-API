@@ -14,4 +14,6 @@ public interface OrderDao {
 	
 	public Order selectByOid(String orderId);
 	public Order selectByOidMid(String orderId, String memberId);
+
+	public void updateAddress(Order order);
 }
