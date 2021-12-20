@@ -3,13 +3,13 @@
 <mapper namespace="com.mycompany.orderAPI.dao.orderDB.PTimelineDao">
 	<insert id="insert" parameterType="payment">
 		INSERT INTO p_timeline
-		(order_id, type, issue_date, state)
-		VALUES (#{orderId}, #{type}, sysdate, #{state})
+		(order_id, type_code, issue_date, state_code)
+		VALUES (#{orderId}, #{typeCode}, sysdate, #{stateCode})
 	</insert>
 	<select id="select" parameterType="payment" resultType="pTimeline">
-		SELECT issue_date, state
-		FROM p_timeline
-		WHERE order_id = #{orderId} AND type = #{type}
+		SELECT pt.issue_date, ps.state
+		FROM p_timeline pt, pay_state ps
+		WHERE order_id = #{orderId} AND type_code = #{typeCode}
 		ORDER BY issue_date
 	</select>
 </mapper>

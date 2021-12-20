@@ -10,7 +10,8 @@ public class Order {
 	String orderId;
 	String memberId;
 	Date orderDate;
-	char state;
+	String state;
+	int stateCode;
 	String request;
 	int zipCode;
 	String address1;

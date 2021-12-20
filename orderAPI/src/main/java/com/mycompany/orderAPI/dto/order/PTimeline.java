@@ -9,5 +9,6 @@ public class PTimeline {
 	String orderId;
 	String type;
 	Date issueDate;
-	char state;
+	String state;
+	int stateCode;
 }

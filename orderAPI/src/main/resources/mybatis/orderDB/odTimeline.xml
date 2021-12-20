@@ -3,13 +3,13 @@
 <mapper namespace="com.mycompany.orderAPI.dao.orderDB.OdTimelineDao">
 	<insert id="insert" parameterType="orderDetail">
 		INSERT INTO od_timeline
-		(psize, product_detail_id, order_id, issue_date, state)
-		VALUES (#{psize}, #{productDetailId}, #{orderId}, sysdate, #{state})
+		(psize, product_detail_id, order_id, issue_date, state_code)
+		VALUES (#{psize}, #{productDetailId}, #{orderId}, sysdate, #{stateCode})
 	</insert>
 	<select id="select" parameterType="orderDetail" resultType="odTimeline">
-		SELECT issue_date, state
-		FROM od_timeline
-		WHERE order_id = #{orderId} AND product_detail_id = #{productDetailId} AND psize = #{psize}
+		SELECT odt.issue_date, ods.state
+		FROM od_timeline odt, od_state ods
+		WHERE order_id = #{orderId} AND product_detail_id = #{productDetailId} AND psize = #{psize} AND odt.state_code = ods.state_code
 		ORDER BY issue_date
 	</select>
 </mapper>
