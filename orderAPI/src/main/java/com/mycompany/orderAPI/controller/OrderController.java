@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.orderAPI.dto.order.Order;
+import com.mycompany.orderAPI.dto.order.OrderCS;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
 import com.mycompany.orderAPI.dto.order.Payment;
+import com.mycompany.orderAPI.service.CSService;
 import com.mycompany.orderAPI.service.OrderService;
 import com.mycompany.orderAPI.service.OrderService.OrderResult;
 import com.mycompany.orderAPI.service.PointService;
@@ -38,6 +40,7 @@ public class OrderController{
 	@Resource
 	private StockService stockService;
 	
+
 	
 	@PostMapping
 	public Map<String,Object> insertOrderTotal(@RequestBody Order order) {
@@ -80,6 +83,8 @@ public class OrderController{
 			@PathVariable String orderId) {
 		log.info("실행");
 		Map<String, Object> order = orderService.getOrderInfo(orderId);
+		
+		
 		log.info("orderId : " + order);
 		
 		return order;
@@ -164,4 +169,5 @@ public class OrderController{
 		
 		return resultMap;
 	}
+
 }

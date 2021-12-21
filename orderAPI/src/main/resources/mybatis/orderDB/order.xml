@@ -6,9 +6,9 @@
 			SELECT SEQ_ORDER.nextval FROM dual
 		</selectKey>
 		INSERT into morder 
-		(order_id, member_id, order_date, state_code, request, zip_code, address1, address2, tel, name, coupon_id)
+		(order_id, member_id, order_date, state_code, request, zip_code, address1, address2, tel, name, coupon_id, total_price)
 		VALUES 
-		(#{orderId}, #{memberId}, sysdate, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{name}, #{couponId})
+		(#{orderId}, #{memberId}, sysdate, 1, #{request}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{name}, #{couponId}, #{totalPrice})
 	</insert>
 	
 	<select id="selectByOid" resultType="order" parameterType="String">

@@ -21,4 +21,5 @@ public class Order {
 	String couponId;
 	List<OrderDetail> orderDetailList;
 	List<Payment> paymentList;
+	int totalPrice;
 }
