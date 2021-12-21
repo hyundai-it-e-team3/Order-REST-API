@@ -11,4 +11,5 @@ public interface PaymentDao {
 	public List<Payment> selectByOid(String orderId);
 	public void insert(Payment payment);
 	public void updateState(Payment payment);
+	public void updateStateByOid(Payment payment);
 }

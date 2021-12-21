@@ -11,4 +11,5 @@ public interface OrderDetailDao {
 	public List<OrderDetail> selectByOid(String orderId);
 	public void insert(OrderDetail orderDetail);
 	public void updateState(OrderDetail orderDetail);
+	public void updateStateByOid(OrderDetail orderDetail);
 }

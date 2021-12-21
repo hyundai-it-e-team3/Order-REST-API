@@ -11,10 +11,15 @@
 		(product_detail_id,  psize, order_id, amount, price, state_code, delivery_no)
 		VALUES (#{productDetailId}, #{psize}, #{orderId}, #{amount}, #{price}, #{stateCode}, #{deliveryNo})
 	</insert>
-	<update id="updateState" parameterType="order">
+	<update id="updateState" parameterType="orderDetail">
 		UPDATE order_detail
 		SET state_code = #{stateCode}
 		WHERE product_detail_id = #{productDetailId} AND order_id = #{orderId} AND psize = #{psize}
+	</update>
+		<update id="updateStateByOid" parameterType="orderDetail">
+		UPDATE order_detail
+		SET state_code = #{stateCode}
+		WHERE order_id = #{orderId}
 	</update>
 	
 	

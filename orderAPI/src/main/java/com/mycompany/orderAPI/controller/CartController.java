@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Cart;
-import com.mycompany.orderAPI.dto.product.StockDTO;
 import com.mycompany.orderAPI.service.CartService;
-import com.mycompany.orderAPI.service.StockService;
 
 import lombok.extern.slf4j.Slf4j;
 

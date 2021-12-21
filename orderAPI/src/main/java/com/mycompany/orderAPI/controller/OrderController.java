@@ -40,11 +40,27 @@ public class OrderController{
 	
 	
 	@PostMapping
-	public String insertOrderTotal(@RequestBody Order order) {
+	public Map<String,Object> insertOrderTotal(@RequestBody Order order) {
 		log.info("실행");
 		log.info("order : " + order);
+		Map<String,Object> result = new HashMap<String, Object>();
+		OrderResult or = orderService.insertOrder(order);
+		if(or == OrderResult.SUCCESS) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		result.put("order", order);
 		
-		orderService.insertOrder(order);
+		return result;
+	}
+	
+	@PatchMapping
+	public String cancelOrder(@RequestBody Order order) {
+		log.info("실행");
+		log.info("cancel : " + order);
+		
+		orderService.cancelOrder(order);
 		
 		return "SUCCESS";
 	}
@@ -63,9 +79,10 @@ public class OrderController{
 	public Map<String, Object> getOrderInfo(
 			@PathVariable String orderId) {
 		log.info("실행");
-		log.info("orderId : " + orderId);
-
-		return orderService.getOrderInfo(orderId);
+		Map<String, Object> order = orderService.getOrderInfo(orderId);
+		log.info("orderId : " + order);
+		
+		return order;
 	}
 	
 	@GetMapping("/{orderId}/list") 
