@@ -62,7 +62,7 @@ public class OrderController{
 		
 		orderService.cancelOrder(order);
 		
-		return "SUCCESS";
+		return "success";
 	}
 	
 	@GetMapping("/list")
@@ -96,11 +96,11 @@ public class OrderController{
 	
 	
 	@PatchMapping("/state")
-	public void updateState(@RequestBody Order order) {
+	public String confirmOrderState(@RequestBody Order order) {
 		log.info("실행");
 		log.info("order : " + order);
-		
-		orderService.updateState(order);
+		orderService.confirmOrder(order);
+		return "success";
 	}
 	
 	@PostMapping("/detail")

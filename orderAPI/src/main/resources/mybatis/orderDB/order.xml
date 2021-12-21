@@ -12,19 +12,19 @@
 	</insert>
 	
 	<select id="selectByOid" resultType="order" parameterType="String">
-		SELECT o.member_id, o.order_date, o.state_code, os.state, o.request, o.zip_code, o.address1, o.address2, o.tel, o.name, o.coupon_id
+		SELECT o.member_id, o.order_date, o.state_code, os.state, o.request, o.zip_code, o.address1, o.address2, o.tel, o.name, o.coupon_id, o.order_id
 		FROM morder o, order_state os
 		WHERE order_id = #{value} AND o.state_code = os.state_code
 	</select>
 	
 	<select id="selectByOidMid" resultType="order" parameterType="Map">
-		SELECT o.order_date, o.state_code, os.state, o.request, o.zip_code, o.address1, o.address2, o.tel, o.name, o.coupon_id
+		SELECT o.order_date, o.state_code, os.state, o.request, o.zip_code, o.address1, o.address2, o.tel, o.name, o.coupon_id, o.order_id, o.memer_id
 		FROM morder o, order_state os
 		WHERE order_id = #{orderId} AND member_id = #{memberId} AND o.state_code = os.state_code
 	</select>
 	
 	<select id="selectByMid" resultType="order" parameterType="String">
-		SELECT o.order_id, o.order_date, o.state_code, os.state
+		SELECT o.order_id, o.order_date, o.state_code, os.state, o.member_id
 		FROM morder o, order_state os
 		WHERE member_id=#{value} AND o.state_code = os.state_code
 		ORDER BY order_date DESC 
