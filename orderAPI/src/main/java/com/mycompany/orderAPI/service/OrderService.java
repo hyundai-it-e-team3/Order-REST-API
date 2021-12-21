@@ -249,4 +249,24 @@ public class OrderService {
 		return OrderResult.SUCCESS;
 	}
 
+	@Transactional
+	public void confirmOrder(Order order) {
+		log.info("주문 상태 변경");
+		order.setStateCode(3);
+		updateState(order);
+		
+		log.info("포인트 적립");
+		List<Payment> paymentList = getPayments(order.getOrderId());
+		for(Payment payment : paymentList) {
+			if(payment.getTypeCode() == 1 ||  payment.getTypeCode() == 2)
+				continue;
+			
+			Point savePoint = new Point();
+			savePoint.setMemberId(order.getMemberId());
+			savePoint.setOrderId(order.getOrderId());
+			savePoint.setPoint((int)Math.round(payment.getPrice() * 0.05));
+			savePoint.setType("적립");
+			pointService.insertSavePoint(savePoint);
+		}
+	}
 }
