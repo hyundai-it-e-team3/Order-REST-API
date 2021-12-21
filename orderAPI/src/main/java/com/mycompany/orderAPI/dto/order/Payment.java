@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class Payment{
-	char type;
+	String type;
+	int typeCode;
 	int price;
 	String accountNo;
 	String bank;

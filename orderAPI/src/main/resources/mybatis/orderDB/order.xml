@@ -49,10 +49,6 @@
 		SET zip_code = #{zipCode}, address1 = #{address1}, address2 = #{address2}, name=#{name}, tel=#{tel}, request=#{request}
 		WHERE order_id = #{orderId}	
 	</update>
-	
-	<update id="cancelOrder" parameterType="order">
-		
-	</update>
 
 </mapper>
 

@@ -13,8 +13,8 @@ import com.mycompany.orderAPI.dao.orderDB.OTimelineDao;
 import com.mycompany.orderAPI.dao.orderDB.OdTimelineDao;
 import com.mycompany.orderAPI.dao.orderDB.OrderDao;
 import com.mycompany.orderAPI.dao.orderDB.OrderDetailDao;
-import com.mycompany.orderAPI.dao.orderDB.PTimelineDao;
 import com.mycompany.orderAPI.dao.orderDB.PaymentDao;
+import com.mycompany.orderAPI.dto.member.MemberCoupon;
 import com.mycompany.orderAPI.dto.member.Point;
 import com.mycompany.orderAPI.dto.order.Order;
 import com.mycompany.orderAPI.dto.order.OrderDetail;
@@ -37,6 +37,8 @@ public class OrderService {
 	PointService pointService;
 	@Resource
 	StockService stockService;
+	@Resource
+	MemberCouponService memberCouponService;
 	
 	@Resource
 	private OrderDao orderDao;
@@ -48,8 +50,6 @@ public class OrderService {
 	private OdTimelineDao odTimelineDao;
 	@Resource
 	private OTimelineDao oTimelineDao;
-	@Resource
-	private PTimelineDao pTimelineDao;
 	
 	public Map<String, Object> getOrderInfo(
 			String orderId) {
@@ -82,15 +82,29 @@ public class OrderService {
 	@Transactional
 	public OrderResult insertOrder(Order order) {
 		log.info("실행");
+		//Order 주문 처리
 		orderDao.insert(order);
 		oTimelineDao.insert(order);
 		
+		//Order 결제 처리
 		List<Payment> pList = order.getPaymentList();
 		for(Payment payment : pList) {
-			payment.setOrderId(order.getOrderId());
-			paymentDao.insert(payment);
-			pTimelineDao.insert(payment);
-			if(payment.getType() == 2) {
+			//orderDB 주문 처리
+			if(payment.getTypeCode() != 0) {
+				payment.setOrderId(order.getOrderId());
+				paymentDao.insert(payment);
+			}
+			
+			//Member DB 주문 처리
+			if(payment.getTypeCode() == 1) {
+				//쿠폰 사용 처리
+				MemberCoupon coupon = new MemberCoupon();
+				coupon.setMemberId(order.getMemberId());
+				coupon.setCouponId(order.getCouponId());
+				
+				memberCouponService.useMemberCoupon(coupon);
+			} else if(payment.getTypeCode() == 2) {
+				//포인트 사용 처리
 				Point usePoint = new Point();
 				usePoint.setMemberId(order.getMemberId());
 				usePoint.setOrderId(order.getOrderId());
@@ -102,11 +116,16 @@ public class OrderService {
 			}
 		}
 		
+		//Order 상품 처리
 		List<OrderDetail> odList = order.getOrderDetailList();
 		for(OrderDetail orderDetail : odList) {
+			//Order DB 주문 처리
 			orderDetail.setOrderId(order.getOrderId());
+			orderDetail.setStateCode(1);
 			orderDetailDao.insert(orderDetail);
 			odTimelineDao.insert(orderDetail);
+			
+			//Product DB 주문 처리
 			StockDTO stock = new StockDTO();
 			stock.setPsize(orderDetail.getPsize());
 			stock.setProductDetailId(orderDetail.getProductDetailId());
@@ -117,6 +136,7 @@ public class OrderService {
 		return OrderResult.SUCCESS;
 	}
 	
+	@Transactional
 	public String insert(Order order) {
 		log.info("실행");
 		orderDao.insert(order);
@@ -124,12 +144,14 @@ public class OrderService {
 		return order.getOrderId();
 	}
 	
+	@Transactional
 	public void updateState(Order order) {
 		log.info("실행");
 		orderDao.updateState(order);
 		oTimelineDao.insert(order);
 	}
 	
+	@Transactional
 	public void insert(OrderDetail orderDetail) {
 		log.info("실행");
 		orderDetailDao.insert(orderDetail);
@@ -141,16 +163,17 @@ public class OrderService {
 		return orderDetailDao.selectByOid(orderId);
 	}
 	
+	@Transactional
 	public void updateState(OrderDetail orderDetail) {
 		log.info("실행");
 		orderDetailDao.updateState(orderDetail);
 		odTimelineDao.insert(orderDetail);
 	}
 	
+	@Transactional
 	public void insert(Payment payment) {
 		log.info("실행");
 		paymentDao.insert(payment);
-		pTimelineDao.insert(payment);
 	}
 	
 	public List<Payment> getPayments(String orderId) {
@@ -158,10 +181,10 @@ public class OrderService {
 		return paymentDao.selectByOid(orderId);
 	}
 	
+	@Transactional
 	public void updateState(Payment payment) {
 		log.info("실행");
 		paymentDao.updateState(payment);
-		pTimelineDao.insert(payment);
 	}
 	
 	public List<OrderDetail> getOrderProducts(String orderId) {
@@ -175,6 +198,54 @@ public class OrderService {
 		if(nOrder.getStateCode() != 1) return OrderResult.FAIL;
 		
 		orderDao.updateAddress(order);
+		return OrderResult.SUCCESS;
+	}
+	
+	@Transactional
+	public OrderResult cancelOrder(Order order) {
+		log.info("실행");
+		Order nOrder = orderDao.selectByOid(order.getOrderId());
+		if(nOrder.getStateCode() != 1 && nOrder.getStateCode() != 4) return OrderResult.FAIL;
+		
+		order.setStateCode(0);
+		orderDao.updateState(order);
+		
+		//결제 환불 처리
+		List<Payment> paymentList = paymentDao.selectByOid(order.getOrderId());
+		for(Payment payment : paymentList) {
+			//Member DB 환불 처리
+			if(payment.getType().equals("쿠폰")) {
+				//쿠폰 환불 로직
+				MemberCoupon coupon = new MemberCoupon();
+				coupon.setMemberId(order.getMemberId());
+				coupon.setCouponId(order.getCouponId());
+				
+				memberCouponService.refundMemberCoupon(coupon);
+			} else if(payment.getType().equals("포인트")) {
+				//포인트 환불 로직
+			}
+			
+			// Order DB 환불 처리
+			payment.setStateCode(0);
+			paymentDao.updateStateByOid(payment);
+		}
+		
+		//상품 환불 처리
+		List<OrderDetail> orderDetailList = orderDetailDao.selectByOid(order.getOrderId());
+		for(OrderDetail orderDetail : orderDetailList) {
+			//ProductDB 환불처리
+			StockDTO stock = new StockDTO();
+			stock.setPsize(orderDetail.getPsize());
+			stock.setProductDetailId(orderDetail.getProductDetailId());
+			stock.setAmount(orderDetail.getAmount());
+			StockResult sr = stockService.addStock(stock);
+			if(sr != StockResult.SUCCESS) return OrderResult.FAIL;
+			
+			//OrderDB 환불처리
+			orderDetail.setStateCode(0);
+			orderDetailDao.updateStateByOid(orderDetail);
+		}
+		
 		return OrderResult.SUCCESS;
 	}
 
