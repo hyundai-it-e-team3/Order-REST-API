@@ -34,4 +34,9 @@
 		VALUES
 		(#{productDetailId}, #{psize}, #{amount}, #{memberId}, #{cartId})
 	</insert>	
+	<update id="updateAmount" parameterType="cart">
+		UPDATE cart
+		SET amount=#{amount}
+		WHERE cart_id=#{cartId}
+	</update>
 </mapper>

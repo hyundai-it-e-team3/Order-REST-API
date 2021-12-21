@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.orderAPI.dto.member.Member;
 import com.mycompany.orderAPI.dto.order.Cart;
+import com.mycompany.orderAPI.dto.product.StockDTO;
 import com.mycompany.orderAPI.service.CartService;
+import com.mycompany.orderAPI.service.StockService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CartController {
 	@Resource CartService cartService;
-	
-	@GetMapping("/{cartId}")
-	public Cart getCart(@PathVariable String cartId) {
-		return cartService.getCart(cartId);
-	}
-	
+
 	@GetMapping
 	public List<Cart> getCarts(@RequestParam String memberId) {
 		log.info("실행");
@@ -50,6 +47,23 @@ public class CartController {
 		cartService.insert(cart);
 	}
 	
+	@PatchMapping
+	public Map<String,Object> updateAmount(
+			@RequestBody Cart cart) {	
+		log.info("실행");
+		log.info("updateAmount : " + cart);
+		
+		Map<String,Object> result =	cartService.updateAmount(cart.getCartId(), cart.getAmount());
+
+		return result;
+	}
+	
+	@GetMapping("/{cartId}")
+	public Cart getCart(@PathVariable String cartId) {
+		return cartService.getCart(cartId);
+	}
+	
+	
 	@PostMapping("/{cartId}")
 	public void update(
 			@PathVariable String cartId,
@@ -57,15 +71,6 @@ public class CartController {
 		log.info("실행");
 		cart.setCartId(cartId);
 		cartService.update(cart);
-	}
-	
-	@PatchMapping("/{cartId}")
-	public void updateAmount(
-			@PathVariable String cartId,
-			@RequestBody Cart cart) {
-		log.info("실행");
-		log.info("amount : " + cart);
-		cartService.updateAmount(cartId, cart.getAmount());
 	}
 	
 	@DeleteMapping("/{cartId}")
