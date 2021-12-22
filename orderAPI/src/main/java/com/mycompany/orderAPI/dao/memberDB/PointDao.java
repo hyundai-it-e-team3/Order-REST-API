@@ -12,4 +12,6 @@ public interface PointDao {
 	public List<Point> getPointList(String memberId);
 	public void insertSavePoint(Point savePoint);
 	public void insertUsePoint(Point usePoint);
+	public List<String> selectRefundPoint(Point refundPoint);
+	public void updateRefundPoint(Point refundPoint);
 }

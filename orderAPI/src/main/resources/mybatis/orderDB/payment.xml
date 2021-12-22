@@ -16,7 +16,7 @@
 		SET state_code = #{stateCode}
 		WHERE order_id = #{orderId} AND type_code=#{typeCode}
 	</update>
-		<update id="updateStateByOid" parameterType="payment">
+	<update id="updateStateByOid" parameterType="payment">
 		UPDATE payment
 		SET state_code = #{stateCode}
 		WHERE order_id = #{orderId}
