@@ -17,6 +17,7 @@
 		<typeAlias type="com.mycompany.orderAPI.dto.order.OrderCS" alias="orderCS"/>
 		
 		<typeAlias type="com.mycompany.orderAPI.dto.product.StockDTO" alias="stock"/>
+		<typeAlias type="com.mycompany.orderAPI.dto.product.ProductDTO" alias="product"/>
 		
 		<typeAlias type="com.mycompany.orderAPI.dto.member.Member" alias="member"/>
 		<typeAlias type="com.mycompany.orderAPI.dto.member.Point" alias="point"/>
