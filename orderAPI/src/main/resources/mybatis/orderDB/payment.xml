@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.orderAPI.dao.orderDB.PaymentDao">
 	<select id="selectByOid" resultType="payment" parameterType="String">
-		SELECT pt.type, p.price, p.account_no, p.bank, p.installment, ps.state, p.state_code, p.type_code
+		SELECT pt.type, p.price, p.account_no, p.bank, p.installment, ps.state, p.state_code, p.type_code, p.order_id
 		FROM payment p, pay_type pt, pay_state ps
 		WHERE order_id = #{value} AND pt.type_code = p.type_code AND ps.state_code = p.state_code
 	</select>
