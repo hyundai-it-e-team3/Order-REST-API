@@ -27,7 +27,7 @@
 			SELECT seq_detail_point.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO detail_point (detail_point_seq, member_id, type, point_seq, status, reg_date, point, balance, ref_detail_point_seq)
-		VALUES (#{detailPointSeq}, #{memberId}, #{type}, #{pointSeq}, '0', sysdate, #{point}, '0', #{refDetailPoinSeq})
+		VALUES (#{detailPointSeq}, #{memberId}, #{type}, #{pointSeq}, '0', sysdate, #{point}, '0', #{refDetailPointSeq})
 	</insert>
 	
 	<update id="updateBalance">
