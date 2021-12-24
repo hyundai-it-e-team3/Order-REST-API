@@ -4,7 +4,7 @@
 <mapper namespace="com.mycompany.orderAPI.dao.memberDB.MemberDao">
 	<update id="updatePointBalance" parameterType="member">
 		UPDATE member
-		SET point = (SELECT point FROM member WHERE member_id = #{memberId}) + #{point}
+		SET point = point + #{point}
 		WHERE member_id = #{memberId}
 	</update>
 	<select id="getMemberPoint" parameterType="String" resultType="int">

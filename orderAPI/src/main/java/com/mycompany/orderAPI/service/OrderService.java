@@ -107,7 +107,7 @@ public class OrderService {
 				coupon.setMemberId(order.getMemberId());
 				coupon.setCouponId(order.getCouponId());
 
-				memberCouponService.useMemberCoupon(coupon);
+				memberCouponService.updateMemberCoupon(coupon);
 			} else if (payment.getTypeCode() == 2) {
 				// 포인트 사용 처리
 				Point usePoint = new Point();

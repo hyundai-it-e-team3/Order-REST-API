@@ -20,20 +20,12 @@ public class MemberCouponService {
 	
 	@Resource
 	private MemberCouponDao memberCouponDao;
-	
 	public void updateMemberCoupon(MemberCoupon memberCoupon) {
 		memberCouponDao.updateMemberCoupon(memberCoupon);
 	}
-
-	public void useMemberCoupon(MemberCoupon coupon) {
-		coupon.setStatus('2');
-		updateMemberCoupon(coupon);
-		
-	}
-
-	public void refundMemberCoupon(MemberCoupon coupon) {
-		coupon.setStatus('1');
-		updateMemberCoupon(coupon);
+	
+	public void refundMemberCoupon(MemberCoupon memberCoupon) {
+		memberCouponDao.refundMemberCoupon(memberCoupon);
 	}
 	
 }
